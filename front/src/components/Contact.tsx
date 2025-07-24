@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Clock, Mail, Phone } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -32,7 +34,7 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://sigma-2agt.onrender.com/api/contact', {
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
