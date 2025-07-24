@@ -32,7 +32,7 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/api/contact', {
+      const response = await fetch('https://sigma-2agt.onrender.com/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
