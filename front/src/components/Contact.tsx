@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Clock, Mail, Phone } from 'lucide-react';
+import { Clock, LoaderCircle, Mail, Phone } from 'lucide-react';
 
 const API_URL = import.meta.env.VITE_API_URL;
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const Contact = () => {
     company: '',
     message: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const [formStatus, setFormStatus] = useState<{
     submitted: boolean;
@@ -32,6 +34,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await fetch(`${API_URL}/api/contact`, {
@@ -69,7 +72,7 @@ const Contact = () => {
       });
     }
 
-    // Limpiar estado del mensaje después de 5 segundos
+    setLoading(false);
     setTimeout(() => {
       setFormStatus({
         submitted: false,
@@ -241,9 +244,10 @@ const Contact = () => {
                 <div className="text-right">
                   <button
                     type="submit"
+                    disabled={loading}
                     className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors font-medium"
                   >
-                    Enviar mensaje
+                    {loading ? <LoaderCircle /> : 'Enviar mensaje'}
                   </button>
                 </div>
               </form>
